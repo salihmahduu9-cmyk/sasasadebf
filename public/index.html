@@ -32,10 +32,10 @@
         output.value = "جاري فك التشفير... انتظر قليلاً";
 
         try {
-            const response = await fetch('/api/deobfuscate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code: input })
+           const response = await fetch('/api/deobfuscate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code: input })
             });
             const data = await response.json();
             output.value = data.result;
