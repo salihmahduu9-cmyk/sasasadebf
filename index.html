@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonviel Deobfuscator - فك تشفير الأكواد</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔐 Moonviel Deobfuscator</h1>
+            <p>أداة لفك تشفير وإلغاء الـ Obfuscation من الأكواد البرمجية</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <label for="language">اختر لغة البرمجة:</label>
+                <select id="language">
+                    <option value="lua">Lua</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="python">Python</option>
+                </select>
+            </div>
+
+            <!-- Input/Output Area -->
+            <div class="editor-container">
+                <div class="editor-section">
+                    <div class="section-header">
+                        <h2>الكود المشفر (Input)</h2>
+                        <button id="pasteBtn" class="btn-secondary">📋 Paste</button>
+                    </div>
+                    <textarea id="input" placeholder="ألصق الكود المشفر هنا..."></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button id="deobfuscateBtn" class="btn-primary">🔄 فك التشفير</button>
+                    <button id="clearBtn" class="btn-secondary">🗑️ مسح</button>
+                    <button id="swapBtn" class="btn-secondary">⇄ تبديل</button>
+                </div>
+
+                <div class="editor-section">
+                    <div class="section-header">
+                        <h2>الكود المفكك (Output)</h2>
+                        <button id="copyBtn" class="btn-secondary">📋 Copy</button>
+                    </div>
+                    <textarea id="output" placeholder="سيظهر الكود المفكك هنا..." readonly></textarea>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="features">
+                <h3>✨ المميزات:</h3>
+                <ul>
+                    <li>فك تشفير Lua Scripts (MoonVeil Obfuscator)</li>
+                    <li>فك تشفير JavaScript</li>
+                    <li>تجميل وتنسيق الأكواس</li>
+                    <li>إزالة الأسماء المشفرة</li>
+                    <li>دعم نسخ سريع</li>
+                    <li>يعمل بدون الحاجة لإرسال البيانات للخادم</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>⚠️ استخدم هذه الأداة فقط للأكواس التي تمتلكها حقوق عليها</p>
+    </footer>
+
+    <script src="deobfuscator.js"></script>
+</body>
+</html>
