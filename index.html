@@ -3,71 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moonviel Deobfuscator - فك تشفير الأكواد</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Moonviel Advanced Deobfuscator v3.0</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: #f8fafc; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: #1e293b; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
+        h1 { color: #38bdf8; text-align: center; font-size: 24px; margin-bottom: 5px; }
+        .credits { text-align: center; color: #94a3b8; font-size: 14px; margin-bottom: 25px; }
+        textarea { width: 100%; height: 250px; background-color: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #38bdf8; padding: 15px; font-family: 'Courier New', Courier, monospace; box-sizing: border-box; resize: vertical; }
+        .btn-container { display: flex; gap: 15px; margin: 20px 0; }
+        button { flex: 1; padding: 12px; background: #0284c7; border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; transition: background 0.2s; font-size: 16px; }
+        button:hover { background: #0369a1; }
+        button.secondary { background: #475569; }
+        button.secondary:hover { background: #334155; }
+        pre { background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #334155; overflow-x: auto; white-space: pre-wrap; font-family: 'Courier New', Courier, monospace; color: #4ade80; max-height: 400px; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>🔐 Moonviel Deobfuscator</h1>
-            <p>أداة لفك تشفير وإلغاء الـ Obfuscation من الأكواد البرمجية</p>
-        </header>
 
-        <div class="main-content">
-            <!-- Language Selector -->
-            <div class="language-selector">
-                <label for="language">اختر لغة البرمجة:</label>
-                <select id="language">
-                    <option value="lua">Lua</option>
-                    <option value="javascript">JavaScript</option>
-                    <option value="python">Python</option>
-                </select>
-            </div>
-
-            <!-- Input/Output Area -->
-            <div class="editor-container">
-                <div class="editor-section">
-                    <div class="section-header">
-                        <h2>الكود المشفر (Input)</h2>
-                        <button id="pasteBtn" class="btn-secondary">📋 Paste</button>
-                    </div>
-                    <textarea id="input" placeholder="ألصق الكود المشفر هنا..."></textarea>
-                </div>
-
-                <div class="button-group">
-                    <button id="deobfuscateBtn" class="btn-primary">🔄 فك التشفير</button>
-                    <button id="clearBtn" class="btn-secondary">🗑️ مسح</button>
-                    <button id="swapBtn" class="btn-secondary">⇄ تبديل</button>
-                </div>
-
-                <div class="editor-section">
-                    <div class="section-header">
-                        <h2>الكود المفكك (Output)</h2>
-                        <button id="copyBtn" class="btn-secondary">📋 Copy</button>
-                    </div>
-                    <textarea id="output" placeholder="سيظهر الكود المفكك هنا..." readonly></textarea>
-                </div>
-            </div>
-
-            <!-- Features -->
-            <div class="features">
-                <h3>✨ المميزات:</h3>
-                <ul>
-                    <li>فك تشفير Lua Scripts (MoonVeil Obfuscator)</li>
-                    <li>فك تشفير JavaScript</li>
-                    <li>تجميل وتنسيق الأكواس</li>
-                    <li>إزالة الأسماء المشفرة</li>
-                    <li>دعم نسخ سريع</li>
-                    <li>يعمل بدون الحاجة لإرسال البيانات للخادم</li>
-                </ul>
-            </div>
-        </div>
+<div class="container">
+    <h1>🔓 Moonviel Advanced Deobfuscator v3.0</h1>
+    <div class="credits">طُور بواسطة Harbawi (@j_w_j_m)</div>
+    
+    <label for="inputCode">قم بلصق السكربت المشفر هنا:</label>
+    <textarea id="inputCode" placeholder="-- ضع كود MoonVeil هنا..."></textarea>
+    
+    <div class="btn-container">
+        <button onclick="sendToDeobfuscate()">فك التشفير الآن ⚡</button>
+        <button class="secondary" onclick="copyOutput()">نسخ الكود الناتج 📋</button>
     </div>
+    
+    <label>الكود الناتج بعد التطهير الحركي:</label>
+    <pre id="outputCode">في انتظار إرسال السكربت...</pre>
+</div>
 
-    <footer class="footer">
-        <p>⚠️ استخدم هذه الأداة فقط للأكواس التي تمتلكها حقوق عليها</p>
-    </footer>
+<script>
+    async function sendToDeobfuscate() {
+        const codeInput = document.getElementById('inputCode').value;
+        const outputFrame = document.getElementById('outputCode');
+        
+        if(!codeInput.trim()) { alert('الرجاء إدخال كود لتفكيكه أولاً!'); return; }
+        
+        outputFrame.innerText = "⏳ جاري تحليل الأنماط وفك تشفير الـ XOR الحركي...";
+        
+        try {
+            const response = await fetch('/api/deobfuscate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: codeInput })
+            });
+            const data = await response.json();
+            outputFrame.innerText = data.deobfuscated || data.error;
+        } catch (err) {
+            outputFrame.innerText = "❌ فشل الاتصال بالخادم الافتراضي للـ Backend.";
+        }
+    }
 
-    <script src="deobfuscator.js"></script>
+    function copyOutput() {
+        const text = document.getElementById('outputCode').innerText;
+        navigator.clipboard.writeText(text);
+        alert('تم نسخ الكود المفكك إلى الحافظة بنجاح!');
+    }
+</script>
 </body>
 </html>
